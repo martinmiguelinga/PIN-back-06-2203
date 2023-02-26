@@ -50,8 +50,16 @@ class ContactoController extends Controller
             'phone' => $request['phone'],
             'message' => $request['message']
         ]);
-        // ARMAR AQUI LA ESTRUCTURA PARA ENVIAR MAIL
-
+// NO OLVIDARME DE VER LA CLASE DEL PROFE ROMERO DEL 3/11 PARA ARMAR AQUI LA ESTRUCTURA PARA ENVIAR MAIL
+        $details = [
+            'title' => 'Contacto: ' . $contacto->name,
+            'body1' => 'email: ' . $contacto->email,
+            'body2' => 'phone: ' . $contacto->phone,
+            'body3' => 'message: ' . $contacto->message
+            
+            ];
+            \Mail::to('martinmiguelinga@gmail.com')->send(new \App\Mail\sendPost($details));
+// HASTA AQUÍ PARA MANTENER TODO ORDENADO - ATENTO QUE PUSE 2 BODY MAS
         return response()->json([
             'mensaje' => 'Se Agrego Correctamente el Contacto',
             'data' => $contacto,
